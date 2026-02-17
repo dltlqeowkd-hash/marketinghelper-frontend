@@ -22,6 +22,7 @@ export default function Navbar() {
             <a href="#pricing" className="text-gray-600 hover:text-gray-900 text-sm">가격</a>
             <a href="#reviews" className="text-gray-600 hover:text-gray-900 text-sm">후기</a>
             <a href="#faq" className="text-gray-600 hover:text-gray-900 text-sm">FAQ</a>
+            <Link to="/seo-doctor" className="text-blue-600 hover:text-blue-700 text-sm font-medium">SEO Doctor</Link>
           </div>
 
           {/* 버튼 */}
@@ -68,6 +69,7 @@ export default function Navbar() {
               <a href="#pricing" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">가격</a>
               <a href="#reviews" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">후기</a>
               <a href="#faq" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">FAQ</a>
+              <Link to="/seo-doctor" onClick={() => setIsOpen(false)} className="px-3 py-2 text-blue-600 font-medium">SEO Doctor</Link>
               <hr />
               {isAuthenticated ? (
                 <Link to="/dashboard" className="px-3 py-2 text-primary-600 font-medium">대시보드</Link>

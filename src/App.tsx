@@ -28,6 +28,7 @@ const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
 const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'));
 const AdminLicenses = lazy(() => import('./pages/admin/AdminLicenses'));
 const AdminSerials = lazy(() => import('./pages/admin/AdminSerials'));
+const SeoDoctor = lazy(() => import('./pages/SeoDoctor'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Refund = lazy(() => import('./pages/Refund'));
@@ -65,6 +66,7 @@ function App() {
               <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/download" element={<ProtectedRoute><Download /></ProtectedRoute>} />
               <Route path="/guide" element={<Guide />} />
+              <Route path="/seo-doctor" element={<SeoDoctor />} />
 
               {/* 결제 (로그인 필수) */}
               <Route path="/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />

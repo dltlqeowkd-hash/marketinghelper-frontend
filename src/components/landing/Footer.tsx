@@ -60,9 +60,9 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  업데이트 로그
-                </a>
+                <Link to="/seo-doctor" className="hover:text-white transition-colors">
+                  SEO Doctor
+                </Link>
               </li>
             </ul>
           </div>
