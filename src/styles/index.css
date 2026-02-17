@@ -1,0 +1,11 @@
+/* Tailwind CSS 기본 레이어 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 전역 기본 스타일 */
+@layer base {
+  body {
+    @apply text-gray-900 bg-white antialiased;
+  }
+}
