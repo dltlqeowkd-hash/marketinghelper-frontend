@@ -4,10 +4,11 @@ import AuthProvider from './components/AuthProvider';
 import AnalyticsProvider from './components/AnalyticsProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// 공개 페이지 (즉시 로드)
-import Home from './pages/Home';
+// 공개 페이지 (즉시 로드) - SEO Doctor가 메인 랜딩
+import SeoDoctor from './pages/SeoDoctor';
 
 // 나머지 페이지 (코드 스플리팅 - 필요 시 로드)
+const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
@@ -28,7 +29,7 @@ const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
 const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'));
 const AdminLicenses = lazy(() => import('./pages/admin/AdminLicenses'));
 const AdminSerials = lazy(() => import('./pages/admin/AdminSerials'));
-const SeoDoctor = lazy(() => import('./pages/SeoDoctor'));
+// SeoDoctor는 이제 즉시 로드 (메인 페이지)
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Refund = lazy(() => import('./pages/Refund'));
@@ -50,8 +51,10 @@ function App() {
         <AnalyticsProvider>
           <Suspense fallback={<Loading />}>
             <Routes>
-              {/* 공개 페이지 */}
-              <Route path="/" element={<Home />} />
+              {/* 공개 페이지 - SEO Doctor가 메인 랜딩 */}
+              <Route path="/" element={<SeoDoctor />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/seo-doctor" element={<SeoDoctor />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -66,7 +69,6 @@ function App() {
               <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/download" element={<ProtectedRoute><Download /></ProtectedRoute>} />
               <Route path="/guide" element={<Guide />} />
-              <Route path="/seo-doctor" element={<SeoDoctor />} />
 
               {/* 결제 (로그인 필수) */}
               <Route path="/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />

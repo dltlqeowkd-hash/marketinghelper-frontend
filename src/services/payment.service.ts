@@ -35,23 +35,37 @@ export async function getPlans(): Promise<PlanInfo[]> {
   return res.data.plans;
 }
 
-// ===== 토스페이먼츠 =====
+// ===== 토스페이먼츠 (비활성) =====
 
-// 토스 결제 준비
-export async function prepareTossPayment(plan: string) {
-  const res = await api.post('/payments/toss/prepare', { plan });
+// // 토스 결제 준비
+// export async function prepareTossPayment(plan: string) {
+//   const res = await api.post('/payments/toss/prepare', { plan });
+//   return res.data;
+// }
+
+// // 토스 결제 승인
+// export async function confirmTossPayment(paymentKey: string, orderId: string, amount: number): Promise<PaymentResult> {
+//   const res = await api.post('/payments/toss/confirm', { paymentKey, orderId, amount });
+//   return res.data;
+// }
+
+// // 토스 정기결제 등록
+// export async function issueTossBilling(authKey: string, customerKey: string, plan: string): Promise<PaymentResult> {
+//   const res = await api.post('/payments/toss/billing', { authKey, customerKey, plan });
+//   return res.data;
+// }
+
+// ===== Polar.sh 카드결제 =====
+
+// Polar 체크아웃 세션 생성
+export async function createPolarCheckout(plan: string) {
+  const res = await api.post('/payments/polar/create-checkout', { plan });
   return res.data;
 }
 
-// 토스 결제 승인
-export async function confirmTossPayment(paymentKey: string, orderId: string, amount: number): Promise<PaymentResult> {
-  const res = await api.post('/payments/toss/confirm', { paymentKey, orderId, amount });
-  return res.data;
-}
-
-// 토스 정기결제 등록
-export async function issueTossBilling(authKey: string, customerKey: string, plan: string): Promise<PaymentResult> {
-  const res = await api.post('/payments/toss/billing', { authKey, customerKey, plan });
+// Polar 체크아웃 상태 확인
+export async function getPolarCheckoutStatus(checkoutId: string) {
+  const res = await api.get(`/payments/polar/checkout/${checkoutId}`);
   return res.data;
 }
 

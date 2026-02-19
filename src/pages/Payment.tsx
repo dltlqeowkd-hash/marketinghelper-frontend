@@ -1,13 +1,13 @@
 // ============================================
 // 결제 페이지
-// 토스페이먼츠 + PayPal + 계좌이체
+// Polar 카드결제 + PayPal + 계좌이체
 // ============================================
 
 import { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { PLAN_LIST, formatKrw, formatUsd } from '../constants/plans';
-import { prepareTossPayment, createPayPalOrder, requestBankTransfer } from '../services/payment.service';
+import { createPolarCheckout, createPayPalOrder, requestBankTransfer } from '../services/payment.service';
 
 export default function Payment() {
   const { user } = useAuth();
@@ -15,10 +15,8 @@ export default function Payment() {
   const preselectedPlan = searchParams.get('plan')?.toUpperCase() || '';
 
   const [selectedPlan, setSelectedPlan] = useState(preselectedPlan || 'PREMIUM');
-  const [paymentMethod, setPaymentMethod] = useState<'toss' | 'paypal' | 'bank'>('toss');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'bank'>('card');
 
-  // VIP_PRO(평생 플랜)는 계좌이체만 가능 (토스 12개월 제한)
-  const isLifetimePlan = selectedPlan === 'VIP_PRO';
   const [bankName, setBankName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,39 +24,18 @@ export default function Payment() {
 
   const plan = PLAN_LIST.find((p) => p.key === selectedPlan);
 
-  const handleTossPayment = async () => {
+  const handlePolarPayment = async () => {
     setError('');
     setIsLoading(true);
-
     try {
-      const data = await prepareTossPayment(selectedPlan);
-
-      // 토스페이먼츠 SDK로 결제창 열기
-      const tossPayments = (window as any).TossPayments;
-      if (!tossPayments) {
-        setError('토스페이먼츠 SDK가 로드되지 않았습니다. 페이지를 새로고침해주세요.');
-        return;
+      const data = await createPolarCheckout(selectedPlan);
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        setError('결제 URL을 받지 못했습니다.');
       }
-
-      const clientKey = import.meta.env.VITE_TOSS_CLIENT_KEY;
-      if (!clientKey) {
-        setError('토스페이먼츠 클라이언트 키가 설정되지 않았습니다.');
-        return;
-      }
-
-      const payment = tossPayments(clientKey);
-      await payment.requestPayment('카드', {
-        amount: data.amount,
-        orderId: data.orderId,
-        orderName: data.orderName,
-        customerName: user?.name || '',
-        customerEmail: user?.email || '',
-        successUrl: `${window.location.origin}/payment/success`,
-        failUrl: `${window.location.origin}/payment/fail`,
-      });
     } catch (err: any) {
-      if (err.code === 'USER_CANCEL') return;
-      setError(err.message || '결제 처리 중 오류가 발생했습니다.');
+      setError(err.response?.data?.error || '카드 결제 준비에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -103,7 +80,7 @@ export default function Payment() {
 
   const handlePayment = () => {
     switch (paymentMethod) {
-      case 'toss': return handleTossPayment();
+      case 'card': return handlePolarPayment();
       case 'paypal': return handlePayPalPayment();
       case 'bank': return handleBankTransfer();
     }
@@ -182,11 +159,7 @@ export default function Payment() {
               {PLAN_LIST.map((p) => (
                 <button
                   key={p.key}
-                  onClick={() => {
-                    setSelectedPlan(p.key);
-                    // VIP PRO는 토스 카드결제 불가 → PayPal 또는 계좌이체만
-                    if (p.key === 'VIP_PRO' && paymentMethod === 'toss') setPaymentMethod('bank');
-                  }}
+                  onClick={() => setSelectedPlan(p.key)}
                   className={`relative p-4 rounded-xl border-2 text-left transition-all ${
                     selectedPlan === p.key
                       ? 'border-primary-500 bg-primary-50'
@@ -215,9 +188,6 @@ export default function Payment() {
                       <div className="text-sm text-gray-400">{formatUsd(p.discountedUsd)}</div>
                     </>
                   )}
-                  {p.key === 'VIP_PRO' && (
-                    <div className="text-xs text-amber-600 mt-1">* 계좌이체 / PayPal 전용</div>
-                  )}
                 </button>
               ))}
             </div>
@@ -225,21 +195,17 @@ export default function Payment() {
             <h2 className="text-lg font-bold text-gray-800 mt-8">2. 결제 수단</h2>
             <div className="space-y-3">
               <button
-                onClick={() => !isLifetimePlan && setPaymentMethod('toss')}
-                disabled={isLifetimePlan}
+                onClick={() => setPaymentMethod('card')}
                 className={`w-full p-4 rounded-xl border-2 flex items-center gap-4 transition-all ${
-                  isLifetimePlan ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed' :
-                  paymentMethod === 'toss' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
+                  paymentMethod === 'card' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                 }`}
               >
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm ${isLifetimePlan ? 'bg-gray-300' : 'bg-blue-500'}`}>
-                  T
+                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xl">
+                  💳
                 </div>
                 <div className="text-left">
-                  <div className="font-medium">토스페이먼츠 (카드결제)</div>
-                  <div className="text-sm text-gray-500">
-                    {isLifetimePlan ? '평생 플랜은 카드결제가 불가합니다' : '신용카드 / 체크카드'}
-                  </div>
+                  <div className="font-medium">카드결제 (Polar)</div>
+                  <div className="text-sm text-gray-500">신용카드 / 체크카드</div>
                 </div>
               </button>
 

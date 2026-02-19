@@ -1,10 +1,10 @@
 // ============================================
-// 토스페이먼츠 결제 성공 페이지
+// Polar 결제 성공 페이지
 // ============================================
 
 import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { confirmTossPayment, PaymentResult } from '../services/payment.service';
+import { getPolarCheckoutStatus, PaymentResult } from '../services/payment.service';
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
@@ -13,22 +13,63 @@ export default function PaymentSuccess() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const paymentKey = searchParams.get('paymentKey');
-    const orderId = searchParams.get('orderId');
-    const amount = Number(searchParams.get('amount'));
-
-    if (!paymentKey || !orderId || !amount) {
+    const checkoutId = searchParams.get('checkout_id');
+    if (!checkoutId) {
       setError('결제 정보가 올바르지 않습니다.');
       setIsLoading(false);
       return;
     }
 
-    confirmTossPayment(paymentKey, orderId, amount)
-      .then(setResult)
-      .catch((err) => {
-        setError(err.response?.data?.error || '결제 승인에 실패했습니다.');
-      })
-      .finally(() => setIsLoading(false));
+    let attempts = 0;
+    const maxAttempts = 12; // 5초 × 12 = 60초
+
+    const checkStatus = async () => {
+      try {
+        const data = await getPolarCheckoutStatus(checkoutId);
+        if (data.payment) {
+          setResult({
+            message: '결제 완료',
+            subscription: data.payment.subscription || { plan: data.payment.plan, endDate: '' },
+            license: data.payment.license || { licenseKey: '' },
+          });
+          setIsLoading(false);
+          return;
+        }
+        if (data.status === 'succeeded' || data.status === 'confirmed') {
+          // 웹훅 처리 대기 중
+          attempts++;
+          if (attempts < maxAttempts) {
+            setTimeout(checkStatus, 5000);
+          } else {
+            setResult({
+              message: '결제 완료',
+              subscription: { plan: '', endDate: '' },
+              license: { licenseKey: '처리 중입니다. 잠시 후 대시보드에서 확인해주세요.' },
+            });
+            setIsLoading(false);
+          }
+          return;
+        }
+        if (data.status === 'failed' || data.status === 'expired') {
+          setError('결제에 실패했습니다.');
+          setIsLoading(false);
+          return;
+        }
+        // still processing
+        attempts++;
+        if (attempts < maxAttempts) {
+          setTimeout(checkStatus, 5000);
+        } else {
+          setError('결제 확인 시간이 초과되었습니다. 대시보드에서 확인해주세요.');
+          setIsLoading(false);
+        }
+      } catch (err: any) {
+        setError(err.response?.data?.error || '결제 확인에 실패했습니다.');
+        setIsLoading(false);
+      }
+    };
+
+    checkStatus();
   }, [searchParams]);
 
   if (isLoading) {
