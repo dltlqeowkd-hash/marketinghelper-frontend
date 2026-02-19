@@ -13,7 +13,7 @@ const SECTIONS = [
   { id: 'installation', label: '프로그램 설치', icon: '💻' },
   { id: 'keywords', label: '키워드 설정', icon: '🔑' },
   { id: 'shopping', label: '쇼핑 자동화', icon: '🛒' },
-  { id: 'blog', label: '블로그 자동화', icon: '📝' },
+  { id: 'competitor', label: '경쟁사 분석 & 스케줄링', icon: '📊' },
   { id: 'dashboard', label: '대시보드 사용법', icon: '📊' },
   { id: 'plans', label: '요금제 안내', icon: '💰' },
   { id: 'faq', label: '자주 묻는 질문', icon: '❓' },
@@ -327,10 +327,10 @@ export default function Guide() {
             </ul>
           </section>
 
-          {/* ===== 5. 블로그 자동화 ===== */}
-          <section id="blog" className="mb-16">
+          {/* ===== 5. 경쟁사 분석 & 자동 스케줄링 ===== */}
+          <section id="competitor" className="mb-16">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">
-              블로그 자동화
+              경쟁사 분석 & 자동 스케줄링
             </h2>
             <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-6">
               <p className="text-purple-700 text-sm font-medium">
@@ -338,45 +338,43 @@ export default function Guide() {
               </p>
             </div>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              네이버 블로그 자동 포스팅 기능으로 상위노출에 최적화된 콘텐츠를 자동으로 작성하고 발행합니다.
-              AI가 키워드에 맞는 고품질 글을 생성합니다.
+              경쟁 상품의 순위 변동을 실시간으로 추적하고, 모든 마케팅 작업을 자동 스케줄링으로 관리합니다.
+              경쟁사 키워드 전략을 파악하여 효율적인 마케팅 전략을 수립하세요.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">블로그 포스팅 설정</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">경쟁사 순위 분석</h3>
             <ol className="list-decimal ml-6 space-y-3 text-gray-600 mb-8">
-              <li>프로그램에서 "블로그 자동화" 탭으로 이동합니다.</li>
-              <li>네이버 블로그 계정을 연동합니다. (여러 계정 연동 가능)</li>
-              <li>포스팅할 키워드와 주제를 설정합니다.</li>
-              <li>발행 스케줄을 설정합니다 (시간대, 요일, 빈도 등).</li>
-              <li>AI가 작성한 글을 미리보기로 확인하고, 필요하면 수정합니다.</li>
-              <li>"자동 발행 시작"을 클릭하면 설정한 스케줄에 맞게 포스팅됩니다.</li>
+              <li>프로그램에서 "경쟁사 분석" 탭으로 이동합니다.</li>
+              <li>추적할 경쟁 상품 URL 또는 키워드를 등록합니다.</li>
+              <li>내 상품과 경쟁사의 순위 변동을 비교 차트로 확인합니다.</li>
+              <li>순위 역전 시 알림을 받아 즉시 대응할 수 있습니다.</li>
             </ol>
 
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">AI 콘텐츠 생성 (VIP 이상)</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">자동 스케줄링 (VIP 이상)</h3>
             <ul className="space-y-3 text-gray-600 mb-6">
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span>키워드 분석 기반의 SEO 최적화 글 자동 생성</span>
+                <span>순위 추적, 키워드 분석을 원하는 시간에 자동 실행</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span>상위노출 패턴 분석으로 최적의 글 구조 자동 적용</span>
+                <span>24시간 무중단 데이터 수집으로 정확한 트렌드 파악</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span>이미지 삽입, 제목 최적화, 태그 자동 설정</span>
+                <span>일별/주별/월별 성과 리포트 자동 생성</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span>다양한 글 톤/스타일 선택 가능 (정보형, 리뷰형, 체험형 등)</span>
+                <span>스케줄별 작업 로그 확인 및 실패 시 자동 재시도</span>
               </li>
             </ul>
 
@@ -483,7 +481,7 @@ export default function Guide() {
                       </td>
                     ))}
                   </tr>
-                  {['네이버 쇼핑 자동화', '블로그 자동 포스팅', 'AI 콘텐츠 생성', '프록시/IP 분산'].map((feat) => (
+                  {['네이버 쇼핑 자동화', '경쟁사 순위 분석', '자동 스케줄링', '프록시/IP 분산'].map((feat) => (
                     <tr key={feat}>
                       <td className="border border-gray-200 px-4 py-3 font-medium text-gray-700">{feat}</td>
                       {PLAN_LIST.map((plan) => {
