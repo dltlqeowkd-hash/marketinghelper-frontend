@@ -154,6 +154,5 @@ export const FOOTER = {
   },
   contact: {
     email: 'dltlqeowkd@gmail.com',
-    kakao: '마케팅헬퍼',
   },
 };

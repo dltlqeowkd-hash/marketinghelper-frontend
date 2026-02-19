@@ -35,7 +35,7 @@ export default function Footer() {
             <p className="text-sm mb-4">{FOOTER.description}</p>
             <div className="space-y-1 text-sm">
               <p>이메일: {FOOTER.contact.email}</p>
-              <p>카카오톡: {FOOTER.contact.kakao}</p>
+              <p>전화: 010-8563-5815</p>
             </div>
           </div>
 
