@@ -11,8 +11,8 @@ export interface PlanDisplay {
   key: string;
   nameKo: string;
   nameEn: string;
-  priceKrw: number;
-  discountedKrw: number;
+  priceKrw: number;       // 정가 (2개월차부터)
+  discountedKrw: number;  // 첫 달 할인가
   priceUsd: number;
   discountedUsd: number;
   discountRate: string;
@@ -20,6 +20,7 @@ export interface PlanDisplay {
   isRecurring: boolean;
   isPopular?: boolean;
   isLifetime?: boolean;
+  isIntroOffer?: boolean; // 첫 달 한정 할인
   keywords: number | '무제한';
   features: PlanFeature[];
   color: string;
@@ -38,13 +39,14 @@ export const PLAN_LIST: PlanDisplay[] = [
     key: 'LIGHT',
     nameKo: 'Light',
     nameEn: 'Light',
-    priceKrw: 29000,
-    discountedKrw: 14500,
-    priceUsd: 29,
-    discountedUsd: 15,
-    discountRate: '50%',
+    priceKrw: 89000,
+    discountedKrw: 8900,
+    priceUsd: 89,
+    discountedUsd: 9,
+    discountRate: '90%',
     period: '월',
     isRecurring: true,
+    isIntroOffer: true,
     keywords: 5,
     color: 'blue',
     features: [
@@ -62,14 +64,15 @@ export const PLAN_LIST: PlanDisplay[] = [
     key: 'PREMIUM',
     nameKo: 'Premium',
     nameEn: 'Premium',
-    priceKrw: 59000,
-    discountedKrw: 29500,
-    priceUsd: 59,
-    discountedUsd: 30,
-    discountRate: '50%',
+    priceKrw: 109000,
+    discountedKrw: 10900,
+    priceUsd: 109,
+    discountedUsd: 11,
+    discountRate: '90%',
     period: '월',
     isRecurring: true,
     isPopular: true,
+    isIntroOffer: true,
     keywords: 20,
     color: 'purple',
     features: [
@@ -87,13 +90,14 @@ export const PLAN_LIST: PlanDisplay[] = [
     key: 'VIP',
     nameKo: 'VIP',
     nameEn: 'VIP',
-    priceKrw: 99000,
-    discountedKrw: 49500,
-    priceUsd: 99,
-    discountedUsd: 50,
-    discountRate: '50%',
+    priceKrw: 129000,
+    discountedKrw: 12900,
+    priceUsd: 129,
+    discountedUsd: 13,
+    discountRate: '90%',
     period: '월',
     isRecurring: true,
+    isIntroOffer: true,
     keywords: 50,
     color: 'amber',
     features: [
@@ -111,11 +115,11 @@ export const PLAN_LIST: PlanDisplay[] = [
     key: 'VIP_PRO',
     nameKo: 'VIP Pro',
     nameEn: 'VIP Pro',
-    priceKrw: 7990000,
-    discountedKrw: 4394500,
-    priceUsd: 7990,
-    discountedUsd: 4395,
-    discountRate: '45%',
+    priceKrw: 1990000,
+    discountedKrw: 1990000,
+    priceUsd: 1990,
+    discountedUsd: 1990,
+    discountRate: '',
     period: '평생',
     isRecurring: false,
     isLifetime: true,

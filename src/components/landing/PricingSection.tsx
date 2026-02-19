@@ -79,16 +79,21 @@ export default function PricingSection() {
 
                 {/* 가격 */}
                 <div className="mb-4">
-                  <div className="text-sm text-gray-400 line-through">{formatKrw(plan.priceKrw)}</div>
+                  <div className="text-sm text-gray-400 line-through">{formatKrw(plan.priceKrw)}{plan.isRecurring ? '/월' : ''}</div>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-3xl font-bold text-gray-900">{formatKrw(plan.discountedKrw)}</span>
                     <span className="text-gray-400 text-sm">
-                      {plan.isRecurring ? '/월' : '(일시불)'}
+                      {plan.isLifetime ? '(평생)' : plan.isIntroOffer ? '/첫 달' : '/월'}
                     </span>
                   </div>
-                  <div className="inline-block mt-2 px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">
-                    {plan.discountRate} OFF
-                  </div>
+                  {plan.discountRate && (
+                    <div className="inline-block mt-2 px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">
+                      {plan.discountRate} OFF
+                    </div>
+                  )}
+                  {plan.isIntroOffer && (
+                    <p className="text-xs text-amber-600 mt-2">2개월차~ {formatKrw(plan.priceKrw)}/월</p>
+                  )}
                 </div>
 
                 {/* 기능 목록 */}

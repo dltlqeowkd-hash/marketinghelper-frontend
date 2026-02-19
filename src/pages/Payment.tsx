@@ -184,7 +184,8 @@ export default function Payment() {
                   key={p.key}
                   onClick={() => {
                     setSelectedPlan(p.key);
-                    if (p.key === 'VIP_PRO') setPaymentMethod('bank');
+                    // VIP PRO는 토스 카드결제 불가 → PayPal 또는 계좌이체만
+                    if (p.key === 'VIP_PRO' && paymentMethod === 'toss') setPaymentMethod('bank');
                   }}
                   className={`relative p-4 rounded-xl border-2 text-left transition-all ${
                     selectedPlan === p.key
@@ -198,14 +199,24 @@ export default function Payment() {
                     </span>
                   )}
                   <div className="font-bold text-gray-800">{p.nameKo} ({p.isRecurring ? `${p.period} 구독` : p.period})</div>
-                  <div className="text-xs text-gray-400 line-through mt-1">{formatKrw(p.priceKrw)}</div>
-                  <div className="text-xl font-bold text-primary-600">
-                    {formatKrw(p.discountedKrw)}
-                  </div>
-                  <div className="text-sm text-gray-400">{formatUsd(p.discountedUsd)}</div>
-                  <div className="text-xs text-red-500 font-medium mt-1">{p.discountRate} 할인</div>
+                  {p.isIntroOffer ? (
+                    <>
+                      <div className="text-xs text-gray-400 line-through mt-1">{formatKrw(p.priceKrw)}/월</div>
+                      <div className="text-xl font-bold text-primary-600">
+                        {formatKrw(p.discountedKrw)}<span className="text-sm font-normal text-gray-500">/첫 달</span>
+                      </div>
+                      <div className="text-xs text-orange-500 font-medium mt-1">첫 달 {p.discountRate} OFF · 2개월차부터 {formatKrw(p.priceKrw)}/월</div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-xl font-bold text-primary-600 mt-1">
+                        {formatKrw(p.discountedKrw)}
+                      </div>
+                      <div className="text-sm text-gray-400">{formatUsd(p.discountedUsd)}</div>
+                    </>
+                  )}
                   {p.key === 'VIP_PRO' && (
-                    <div className="text-xs text-amber-600 mt-1">* 계좌이체 전용</div>
+                    <div className="text-xs text-amber-600 mt-1">* 계좌이체 / PayPal 전용</div>
                   )}
                 </button>
               ))}
@@ -227,27 +238,23 @@ export default function Payment() {
                 <div className="text-left">
                   <div className="font-medium">토스페이먼츠 (카드결제)</div>
                   <div className="text-sm text-gray-500">
-                    {isLifetimePlan ? '평생 플랜은 계좌이체만 가능합니다' : '신용카드 / 체크카드'}
+                    {isLifetimePlan ? '평생 플랜은 카드결제가 불가합니다' : '신용카드 / 체크카드'}
                   </div>
                 </div>
               </button>
 
               <button
-                onClick={() => !isLifetimePlan && setPaymentMethod('paypal')}
-                disabled={isLifetimePlan}
+                onClick={() => setPaymentMethod('paypal')}
                 className={`w-full p-4 rounded-xl border-2 flex items-center gap-4 transition-all ${
-                  isLifetimePlan ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed' :
                   paymentMethod === 'paypal' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                 }`}
               >
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm ${isLifetimePlan ? 'bg-gray-300' : 'bg-[#003087]'}`}>
+                <div className="w-10 h-10 bg-[#003087] rounded-lg flex items-center justify-center text-white font-bold text-sm">
                   P
                 </div>
                 <div className="text-left">
                   <div className="font-medium">PayPal</div>
-                  <div className="text-sm text-gray-500">
-                    {isLifetimePlan ? '평생 플랜은 계좌이체만 가능합니다' : `해외 결제 (${plan ? formatUsd(plan.discountedUsd) : ''})`}
-                  </div>
+                  <div className="text-sm text-gray-500">해외 결제 ({plan ? formatUsd(plan.discountedUsd) : ''})</div>
                 </div>
               </button>
 
@@ -303,21 +310,37 @@ export default function Payment() {
                       <span className="font-medium">{plan.isRecurring ? '예' : '아니오 (1회)'}</span>
                     </div>
                     <hr />
-                    <div className="flex justify-between text-sm text-gray-400">
-                      <span>정가</span>
-                      <span className="line-through">
-                        {paymentMethod === 'paypal' ? formatUsd(plan.priceUsd) : formatKrw(plan.priceKrw)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-lg">할인가</span>
-                      <div className="text-right">
+                    {plan.isIntroOffer ? (
+                      <>
+                        <div className="flex justify-between text-sm text-gray-400">
+                          <span>정가</span>
+                          <span className="line-through">
+                            {paymentMethod === 'paypal' ? formatUsd(plan.priceUsd) : formatKrw(plan.priceKrw)}/월
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-lg">첫 달 결제</span>
+                          <div className="text-right">
+                            <span className="font-bold text-lg text-primary-600">
+                              {paymentMethod === 'paypal' ? formatUsd(plan.discountedUsd) : formatKrw(plan.discountedKrw)}
+                            </span>
+                            <span className="ml-2 text-xs text-red-500 font-medium">{plan.discountRate} OFF</span>
+                          </div>
+                        </div>
+                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                          <p className="text-xs text-amber-700">
+                            2개월차부터 {paymentMethod === 'paypal' ? formatUsd(plan.priceUsd) : formatKrw(plan.priceKrw)}/월 자동 결제
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold text-lg">결제 금액</span>
                         <span className="font-bold text-lg text-primary-600">
                           {paymentMethod === 'paypal' ? formatUsd(plan.discountedUsd) : formatKrw(plan.discountedKrw)}
                         </span>
-                        <span className="ml-2 text-xs text-red-500 font-medium">{plan.discountRate} OFF</span>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <button
