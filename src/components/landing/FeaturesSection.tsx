@@ -1,5 +1,15 @@
-// 기능 소개 섹션
+// 기능 소개 섹션 - 프리미엄 디자인
 import { FEATURES } from '../../constants/content';
+
+// 아이콘별 그라디언트 색상
+const ICON_STYLES: Record<string, { gradient: string; shadow: string }> = {
+  chart:  { gradient: 'from-primary-500 to-blue-600',   shadow: 'shadow-primary-500/25' },
+  pencil: { gradient: 'from-violet-500 to-purple-600',  shadow: 'shadow-violet-500/25' },
+  target: { gradient: 'from-amber-500 to-orange-600',   shadow: 'shadow-amber-500/25' },
+  users:  { gradient: 'from-emerald-500 to-teal-600',   shadow: 'shadow-emerald-500/25' },
+  shield: { gradient: 'from-rose-500 to-pink-600',      shadow: 'shadow-rose-500/25' },
+  clock:  { gradient: 'from-indigo-500 to-primary-600', shadow: 'shadow-indigo-500/25' },
+};
 
 const ICONS: Record<string, JSX.Element> = {
   pencil: (
@@ -36,26 +46,42 @@ const ICONS: Record<string, JSX.Element> = {
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="features" className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      {/* 배경 장식 */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary-100/50 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-100/30 rounded-full blur-3xl" />
+
+      <div className="relative max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+            핵심 기능
+          </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{FEATURES.title}</h2>
-          <p className="text-lg text-gray-500">{FEATURES.subtitle}</p>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">{FEATURES.subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {FEATURES.list.map((feature, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all"
-            >
-              <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-xl flex items-center justify-center mb-5">
-                {ICONS[feature.icon]}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {FEATURES.list.map((feature, i) => {
+            const style = ICON_STYLES[feature.icon] || ICON_STYLES.chart;
+            return (
+              <div
+                key={i}
+                className="group relative bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                {/* 호버 시 배경 그라디언트 */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-50/0 to-accent-50/0 group-hover:from-primary-50/50 group-hover:to-accent-50/50 rounded-2xl transition-all duration-300" />
+
+                <div className="relative">
+                  {/* 그라디언트 아이콘 */}
+                  <div className={`w-14 h-14 bg-gradient-to-br ${style.gradient} text-white rounded-xl flex items-center justify-center mb-5 shadow-lg ${style.shadow} group-hover:scale-110 transition-transform duration-300`}>
+                    {ICONS[feature.icon]}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-500 leading-relaxed">{feature.description}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-              <p className="text-gray-500 leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

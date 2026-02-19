@@ -1,9 +1,9 @@
-// 가격 플랜 섹션
+// 가격 플랜 섹션 - 프리미엄 디자인
 import { Link } from 'react-router-dom';
 import { PLAN_LIST, FREE_TRIAL, formatKrw } from '../../constants/plans';
 
 const CheckIcon = () => (
-  <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+  <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
   </svg>
 );
@@ -16,9 +16,17 @@ const XIcon = () => (
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="pricing" className="py-24 relative overflow-hidden">
+      {/* 배경 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-100/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-100/30 rounded-full blur-3xl" />
+
+      <div className="relative max-w-7xl mx-auto px-4">
         <div className="text-center mb-6">
+          <span className="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+            가격 안내
+          </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">합리적인 가격, 강력한 기능</h2>
           <p className="text-lg text-gray-500">
             비즈니스 규모에 맞는 플랜을 선택하세요
@@ -27,22 +35,25 @@ export default function PricingSection() {
 
         {/* 무료 체험 배너 */}
         <div className="max-w-2xl mx-auto mb-12">
-          <div className="bg-gradient-to-r from-primary-500 to-primary-700 rounded-2xl p-6 text-center text-white shadow-lg">
-            <p className="text-sm font-medium opacity-90 mb-1">{FREE_TRIAL.nameKo}</p>
-            <p className="text-2xl font-bold mb-2">{FREE_TRIAL.features} - {FREE_TRIAL.duration} 무료!</p>
-            <p className="text-sm opacity-80 mb-3">카드 등록 불필요 · 키워드 {FREE_TRIAL.keywords}개 체험</p>
-            <Link
-              to="/register"
-              className="inline-block px-6 py-2 bg-white text-primary-700 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-            >
-              무료 체험 시작
-            </Link>
+          <div className="bg-gradient-to-r from-primary-600 via-accent-600 to-primary-600 rounded-2xl p-6 text-center text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
+            <div className="absolute inset-0 shimmer-bg animate-shimmer" />
+            <div className="relative">
+              <p className="text-sm font-medium opacity-90 mb-1">{FREE_TRIAL.nameKo}</p>
+              <p className="text-2xl font-bold mb-2">{FREE_TRIAL.features} - {FREE_TRIAL.duration} 무료!</p>
+              <p className="text-sm opacity-80 mb-3">카드 등록 불필요 · 키워드 {FREE_TRIAL.keywords}개 체험</p>
+              <Link
+                to="/register"
+                className="inline-block px-6 py-2 bg-white text-primary-700 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+              >
+                무료 체험 시작
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* 신규 할인 안내 */}
         <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 bg-red-50 text-red-600 rounded-full text-sm font-medium border border-red-200">
+          <span className="inline-block px-5 py-2.5 bg-gradient-to-r from-red-50 to-orange-50 text-red-600 rounded-full text-sm font-bold border border-red-200 shadow-sm">
             신규 가입자 한정 첫 달 90% 할인 진행중!
           </span>
         </div>
@@ -52,21 +63,21 @@ export default function PricingSection() {
           {PLAN_LIST.map((plan) => (
             <div
               key={plan.key}
-              className={`relative rounded-2xl p-6 border-2 transition-all flex flex-col ${
+              className={`relative rounded-2xl p-6 transition-all duration-300 flex flex-col hover:-translate-y-1 ${
                 plan.isPopular
-                  ? 'border-primary-500 bg-white shadow-xl scale-[1.02]'
+                  ? 'bg-white shadow-xl shadow-primary-500/10 scale-[1.02] ring-2 ring-primary-500'
                   : plan.isLifetime
-                  ? 'border-amber-400 bg-gradient-to-b from-amber-50 to-white shadow-lg'
-                  : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+                  ? 'bg-gradient-to-b from-amber-50 to-white shadow-xl shadow-amber-500/10 ring-2 ring-amber-400'
+                  : 'bg-white border border-gray-200 hover:shadow-lg hover:border-gray-300'
               }`}
             >
               {plan.isPopular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary-600 text-white text-xs font-bold rounded-full whitespace-nowrap">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg shadow-primary-500/25">
                   가장 인기
                 </div>
               )}
               {plan.isLifetime && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-amber-500 text-white text-xs font-bold rounded-full whitespace-nowrap">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg shadow-amber-500/25">
                   평생 소장
                 </div>
               )}
@@ -87,7 +98,7 @@ export default function PricingSection() {
                     </span>
                   </div>
                   {plan.discountRate && (
-                    <div className="inline-block mt-2 px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">
+                    <div className="inline-block mt-2 px-3 py-1 bg-gradient-to-r from-red-100 to-orange-100 text-red-600 text-xs font-bold rounded-full">
                       {plan.discountRate} OFF
                     </div>
                   )}
@@ -108,11 +119,11 @@ export default function PricingSection() {
 
                 <Link
                   to={`/payment?plan=${plan.key}`}
-                  className={`block w-full py-3 rounded-xl font-medium text-center transition-colors ${
+                  className={`block w-full py-3 rounded-xl font-medium text-center transition-all duration-300 ${
                     plan.isPopular
-                      ? 'bg-primary-600 text-white hover:bg-primary-700'
+                      ? 'bg-gradient-to-r from-primary-600 to-accent-600 text-white hover:from-primary-500 hover:to-accent-500 shadow-md shadow-primary-500/20'
                       : plan.isLifetime
-                      ? 'bg-amber-500 text-white hover:bg-amber-600'
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-400 hover:to-orange-400 shadow-md shadow-amber-500/20'
                       : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                   }`}
                 >
@@ -125,7 +136,7 @@ export default function PricingSection() {
 
         {/* 추천인 혜택 */}
         <div className="mt-12 max-w-2xl mx-auto">
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 text-center">
             <h3 className="text-lg font-bold text-blue-800 mb-2">친구 추천 혜택</h3>
             <p className="text-blue-600 text-sm">
               친구에게 추천 코드를 공유하세요! 친구가 가입하면 <strong>구독 1개월 무료 연장</strong> 혜택을 드립니다.
@@ -138,15 +149,15 @@ export default function PricingSection() {
           <p className="text-sm text-gray-400 mb-4">지원 결제수단</p>
           <div className="flex items-center justify-center gap-6 text-gray-400">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-white text-xs font-bold">T</div>
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-sm">T</div>
               <span className="text-sm">토스페이먼츠</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#003087] rounded flex items-center justify-center text-white text-xs font-bold">P</div>
+              <div className="w-8 h-8 bg-gradient-to-br from-[#003087] to-[#001e5b] rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-sm">P</div>
               <span className="text-sm">PayPal</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center text-white text-xs font-bold">B</div>
+              <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-sm">B</div>
               <span className="text-sm">계좌이체</span>
             </div>
           </div>
