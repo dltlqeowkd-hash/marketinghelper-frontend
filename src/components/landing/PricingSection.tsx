@@ -43,7 +43,7 @@ export default function PricingSection() {
         {/* 신규 할인 안내 */}
         <div className="text-center mb-8">
           <span className="inline-block px-4 py-2 bg-red-50 text-red-600 rounded-full text-sm font-medium border border-red-200">
-            신규 가입자 한정 최대 50% 할인 진행중!
+            신규 가입자 한정 첫 달 90% 할인 진행중!
           </span>
         </div>
 
