@@ -825,35 +825,51 @@ export default function SeoDoctor() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
-                  to="/#pricing"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = '/#pricing';
-                  }}
+                  to="/home"
                   className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/25"
                 >
                   마케팅헬퍼 둘러보기
                 </Link>
-                <Link
-                  to="/"
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="px-6 py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors"
                 >
-                  홈으로 돌아가기
-                </Link>
+                  맨 위로 돌아가기
+                </button>
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* ───── 푸터 간소화 ───── */}
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link to="/" className="text-white font-bold text-lg">마케팅헬퍼</Link>
-          <div className="flex items-center gap-6 text-sm">
-            <Link to="/terms" className="hover:text-white transition-colors">이용약관</Link>
-            <Link to="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link>
-            <Link to="/guide" className="hover:text-white transition-colors">사용 가이드</Link>
+      {/* ───── 푸터 (사업자정보 포함) ───── */}
+      <footer className="bg-gray-900 text-gray-400 py-12 mt-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col sm:flex-row items-start justify-between gap-8 mb-8">
+            <div>
+              <Link to="/" className="text-white font-bold text-lg">마케팅헬퍼</Link>
+              <p className="text-sm mt-2">네이버 마케팅 자동화 솔루션</p>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <Link to="/home" className="hover:text-white transition-colors">홈</Link>
+              <Link to="/terms" className="hover:text-white transition-colors">이용약관</Link>
+              <Link to="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link>
+              <Link to="/refund" className="hover:text-white transition-colors">환불정책</Link>
+              <Link to="/guide" className="hover:text-white transition-colors">사용 가이드</Link>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-6 mb-6">
+            <div className="text-xs text-gray-500 space-y-1">
+              <p>상호명: 세리오(Serio) | 서비스명: 마케팅헬퍼</p>
+              <p>대표: 최영호</p>
+              <p>사업자등록번호: 863-17-01349</p>
+              <p>주소: 경기도 성남시 중원구 갈마치로288번길 14, 2층 225-2호(상대원동, 성남SK V1 tower)</p>
+              <p>통신판매업신고: 제 2021-경기광주-0383 호</p>
+              <p>전화: 010-8563-5815 | 문의: dltlqeowkd@gmail.com</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-6 text-center text-sm">
+            <p>&copy; 2020 세리오(Serio). All rights reserved.</p>
           </div>
         </div>
       </footer>
