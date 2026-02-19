@@ -138,14 +138,22 @@ export const CTA = {
 export const FOOTER = {
   company: '마케팅헬퍼',
   description: '네이버 마케팅 자동화 솔루션',
-  copyright: '© 2025 MarketingHelper. All rights reserved.',
+  copyright: '© 2020 세리오(Serio). All rights reserved.',
+  businessInfo: {
+    name: '세리오(Serio)',
+    representative: '최영호',
+    businessNumber: '863-17-01349',
+    address: '경기도 성남시 중원구 갈마치로288번길 14, 2층 225-2호(상대원동, 성남SK V1 tower)',
+    onlineSalesNumber: '제 2021-경기광주-0383 호',
+    phone: '010-8563-5815',
+  },
   links: {
     product: ['기능 소개', '가격 안내', '업데이트 로그'],
     support: ['고객센터', '사용 가이드', '자주 묻는 질문'],
     legal: ['이용약관', '개인정보처리방침', '환불정책'],
   },
   contact: {
-    email: 'support@marketinghelper.co.kr',
+    email: 'dltlqeowkd@gmail.com',
     kakao: '마케팅헬퍼',
   },
 };

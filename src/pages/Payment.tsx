@@ -16,6 +16,9 @@ export default function Payment() {
 
   const [selectedPlan, setSelectedPlan] = useState(preselectedPlan || 'PREMIUM');
   const [paymentMethod, setPaymentMethod] = useState<'toss' | 'paypal' | 'bank'>('toss');
+
+  // VIP_PRO(평생 플랜)는 계좌이체만 가능 (토스 12개월 제한)
+  const isLifetimePlan = selectedPlan === 'VIP_PRO';
   const [bankName, setBankName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -179,7 +182,10 @@ export default function Payment() {
               {PLAN_LIST.map((p) => (
                 <button
                   key={p.key}
-                  onClick={() => setSelectedPlan(p.key)}
+                  onClick={() => {
+                    setSelectedPlan(p.key);
+                    if (p.key === 'VIP_PRO') setPaymentMethod('bank');
+                  }}
                   className={`relative p-4 rounded-xl border-2 text-left transition-all ${
                     selectedPlan === p.key
                       ? 'border-primary-500 bg-primary-50'
@@ -191,13 +197,16 @@ export default function Payment() {
                       인기
                     </span>
                   )}
-                  <div className="font-bold text-gray-800">{p.nameKo} ({p.isRecurring ? `${p.period}구독` : p.period})</div>
+                  <div className="font-bold text-gray-800">{p.nameKo} ({p.isRecurring ? `${p.period} 구독` : p.period})</div>
                   <div className="text-xs text-gray-400 line-through mt-1">{formatKrw(p.priceKrw)}</div>
                   <div className="text-xl font-bold text-primary-600">
                     {formatKrw(p.discountedKrw)}
                   </div>
                   <div className="text-sm text-gray-400">{formatUsd(p.discountedUsd)}</div>
                   <div className="text-xs text-red-500 font-medium mt-1">{p.discountRate} 할인</div>
+                  {p.key === 'VIP_PRO' && (
+                    <div className="text-xs text-amber-600 mt-1">* 계좌이체 전용</div>
+                  )}
                 </button>
               ))}
             </div>
@@ -205,32 +214,40 @@ export default function Payment() {
             <h2 className="text-lg font-bold text-gray-800 mt-8">2. 결제 수단</h2>
             <div className="space-y-3">
               <button
-                onClick={() => setPaymentMethod('toss')}
+                onClick={() => !isLifetimePlan && setPaymentMethod('toss')}
+                disabled={isLifetimePlan}
                 className={`w-full p-4 rounded-xl border-2 flex items-center gap-4 transition-all ${
+                  isLifetimePlan ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed' :
                   paymentMethod === 'toss' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                 }`}
               >
-                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm ${isLifetimePlan ? 'bg-gray-300' : 'bg-blue-500'}`}>
                   T
                 </div>
                 <div className="text-left">
                   <div className="font-medium">토스페이먼츠 (카드결제)</div>
-                  <div className="text-sm text-gray-500">신용카드 / 체크카드</div>
+                  <div className="text-sm text-gray-500">
+                    {isLifetimePlan ? '평생 플랜은 계좌이체만 가능합니다' : '신용카드 / 체크카드'}
+                  </div>
                 </div>
               </button>
 
               <button
-                onClick={() => setPaymentMethod('paypal')}
+                onClick={() => !isLifetimePlan && setPaymentMethod('paypal')}
+                disabled={isLifetimePlan}
                 className={`w-full p-4 rounded-xl border-2 flex items-center gap-4 transition-all ${
+                  isLifetimePlan ? 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed' :
                   paymentMethod === 'paypal' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                 }`}
               >
-                <div className="w-10 h-10 bg-[#003087] rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm ${isLifetimePlan ? 'bg-gray-300' : 'bg-[#003087]'}`}>
                   P
                 </div>
                 <div className="text-left">
                   <div className="font-medium">PayPal</div>
-                  <div className="text-sm text-gray-500">해외 결제 ({plan ? formatUsd(plan.discountedUsd) : ''})</div>
+                  <div className="text-sm text-gray-500">
+                    {isLifetimePlan ? '평생 플랜은 계좌이체만 가능합니다' : `해외 결제 (${plan ? formatUsd(plan.discountedUsd) : ''})`}
+                  </div>
                 </div>
               </button>
 

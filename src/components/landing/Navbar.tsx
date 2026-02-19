@@ -1,11 +1,30 @@
 // 네비게이션 바
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function Navbar() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // 홈페이지 섹션으로 이동하는 핸들러
+  function handleSectionClick(sectionId: string) {
+    setIsOpen(false);
+    if (location.pathname === '/') {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.location.href = `/#${sectionId}`;
+    }
+  }
+
+  // 로그아웃 핸들러
+  async function handleLogout() {
+    await logout();
+    navigate('/');
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
@@ -18,22 +37,30 @@ export default function Navbar() {
 
           {/* 데스크톱 메뉴 */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-gray-600 hover:text-gray-900 text-sm">기능</a>
-            <a href="#pricing" className="text-gray-600 hover:text-gray-900 text-sm">가격</a>
-            <a href="#reviews" className="text-gray-600 hover:text-gray-900 text-sm">후기</a>
-            <a href="#faq" className="text-gray-600 hover:text-gray-900 text-sm">FAQ</a>
+            <button onClick={() => handleSectionClick('features')} className="text-gray-600 hover:text-gray-900 text-sm">기능</button>
+            <button onClick={() => handleSectionClick('pricing')} className="text-gray-600 hover:text-gray-900 text-sm">가격</button>
+            <button onClick={() => handleSectionClick('testimonials')} className="text-gray-600 hover:text-gray-900 text-sm">후기</button>
+            <button onClick={() => handleSectionClick('faq')} className="text-gray-600 hover:text-gray-900 text-sm">FAQ</button>
             <Link to="/seo-doctor" className="text-blue-600 hover:text-blue-700 text-sm font-medium">SEO Doctor</Link>
           </div>
 
           {/* 버튼 */}
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
-              <Link
-                to="/dashboard"
-                className="px-5 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
-              >
-                대시보드
-              </Link>
+              <>
+                <Link
+                  to="/dashboard"
+                  className="px-5 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+                >
+                  대시보드
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-gray-500 hover:text-gray-900 text-sm transition-colors"
+                >
+                  로그아웃
+                </button>
+              </>
             ) : (
               <>
                 <Link to="/login" className="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm">
@@ -65,18 +92,21 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col gap-3">
-              <a href="#features" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">기능</a>
-              <a href="#pricing" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">가격</a>
-              <a href="#reviews" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">후기</a>
-              <a href="#faq" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">FAQ</a>
+              <button onClick={() => handleSectionClick('features')} className="px-3 py-2 text-gray-600 text-left">기능</button>
+              <button onClick={() => handleSectionClick('pricing')} className="px-3 py-2 text-gray-600 text-left">가격</button>
+              <button onClick={() => handleSectionClick('testimonials')} className="px-3 py-2 text-gray-600 text-left">후기</button>
+              <button onClick={() => handleSectionClick('faq')} className="px-3 py-2 text-gray-600 text-left">FAQ</button>
               <Link to="/seo-doctor" onClick={() => setIsOpen(false)} className="px-3 py-2 text-blue-600 font-medium">SEO Doctor</Link>
               <hr />
               {isAuthenticated ? (
-                <Link to="/dashboard" className="px-3 py-2 text-primary-600 font-medium">대시보드</Link>
+                <>
+                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="px-3 py-2 text-primary-600 font-medium">대시보드</Link>
+                  <button onClick={() => { handleLogout(); setIsOpen(false); }} className="px-3 py-2 text-gray-600 text-left">로그아웃</button>
+                </>
               ) : (
                 <>
-                  <Link to="/login" className="px-3 py-2 text-gray-600">로그인</Link>
-                  <Link to="/register" className="px-3 py-2 text-primary-600 font-medium">무료 시작</Link>
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="px-3 py-2 text-gray-600">로그인</Link>
+                  <Link to="/register" onClick={() => setIsOpen(false)} className="px-3 py-2 text-primary-600 font-medium">무료 시작</Link>
                 </>
               )}
             </div>

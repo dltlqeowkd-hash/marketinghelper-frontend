@@ -106,8 +106,21 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* 사업자 정보 */}
+        <div className="border-t border-gray-800 pt-8 mb-6">
+          <div className="text-xs text-gray-500 space-y-1">
+            <p>상호명: {FOOTER.businessInfo.name} | 서비스명: {FOOTER.company}</p>
+            {FOOTER.businessInfo.representative && <p>대표: {FOOTER.businessInfo.representative}</p>}
+            {FOOTER.businessInfo.businessNumber && <p>사업자등록번호: {FOOTER.businessInfo.businessNumber}</p>}
+            {FOOTER.businessInfo.address && <p>주소: {FOOTER.businessInfo.address}</p>}
+            {FOOTER.businessInfo.onlineSalesNumber && <p>통신판매업신고: {FOOTER.businessInfo.onlineSalesNumber}</p>}
+            {FOOTER.businessInfo.phone && <p>전화: {FOOTER.businessInfo.phone}</p>}
+            <p>문의: {FOOTER.contact.email}</p>
+          </div>
+        </div>
+
         {/* 하단 */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm">{FOOTER.copyright}</p>
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-sm hover:text-white transition-colors">로그인</Link>

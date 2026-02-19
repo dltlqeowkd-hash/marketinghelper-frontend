@@ -74,7 +74,7 @@ export default function Privacy() {
             <h2 className="text-xl font-semibold mb-3">7. 개인정보 보호 책임자</h2>
             <ul className="list-none space-y-1">
               <li>담당: 개인정보 보호 담당자</li>
-              <li>이메일: privacy@marketinghelper.co.kr</li>
+              <li>이메일: dltlqeowkd@gmail.com</li>
             </ul>
           </section>
 

@@ -83,7 +83,7 @@ export default function Refund() {
               환불 관련 문의는 아래로 연락해주세요.
             </p>
             <ul className="list-none mt-2 space-y-1">
-              <li>이메일: support@marketinghelper.co.kr</li>
+              <li>이메일: dltlqeowkd@gmail.com</li>
               <li>처리 시간: 평일 09:00 ~ 18:00 (공휴일 제외)</li>
             </ul>
           </section>

@@ -552,7 +552,7 @@ export default function Guide() {
               />
               <FAQItem
                 question="라이선스 키를 분실했어요."
-                answer="대시보드의 '라이선스 관리' 메뉴에서 언제든지 라이선스 키를 다시 확인할 수 있습니다. 로그인이 불가능한 경우 support@marketinghelper.co.kr로 문의해주세요."
+                answer="대시보드의 '라이선스 관리' 메뉴에서 언제든지 라이선스 키를 다시 확인할 수 있습니다. 로그인이 불가능한 경우 dltlqeowkd@gmail.com으로 문의해주세요."
               />
               <FAQItem
                 question="기기를 변경하고 싶어요."
@@ -576,7 +576,7 @@ export default function Guide() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <a
-                href="mailto:support@marketinghelper.co.kr"
+                href="mailto:dltlqeowkd@gmail.com"
                 className="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border border-gray-100 hover:bg-gray-100 transition-colors"
               >
                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -586,7 +586,7 @@ export default function Guide() {
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">이메일 문의</p>
-                  <p className="text-sm text-gray-500 mt-1">support@marketinghelper.co.kr</p>
+                  <p className="text-sm text-gray-500 mt-1">dltlqeowkd@gmail.com</p>
                   <p className="text-xs text-gray-400 mt-1">영업일 기준 24시간 이내 답변</p>
                 </div>
               </a>
