@@ -5,12 +5,10 @@
 
 import { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 import { PLAN_LIST, formatKrw, formatUsd } from '../constants/plans';
 import { createPolarCheckout, createPayPalOrder, requestBankTransfer } from '../services/payment.service';
 
 export default function Payment() {
-  const { user } = useAuth();
   const [searchParams] = useSearchParams();
   const preselectedPlan = searchParams.get('plan')?.toUpperCase() || '';
 
