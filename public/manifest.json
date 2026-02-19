@@ -1,0 +1,28 @@
+{
+  "name": "마케팅헬퍼 - 네이버 마케팅 자동화",
+  "short_name": "마케팅헬퍼",
+  "description": "네이버 쇼핑 순위 추적, 경쟁사 분석, 키워드 최적화를 자동화하는 마케팅 솔루션",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

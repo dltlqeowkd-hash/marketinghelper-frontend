@@ -7,6 +7,8 @@ import { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import api from '../services/api';
+import SEO from '../components/SEO';
+import { PAGE_SEO } from '../constants/seo';
 
 // ─── 타입 정의 ───────────────────────────────
 
@@ -488,6 +490,7 @@ export default function SeoDoctor() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO {...PAGE_SEO['/']} />
       {/* ───── 네비게이션 ───── */}
       <nav className="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

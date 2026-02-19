@@ -1,6 +1,10 @@
+import SEO from '../components/SEO';
+import { PAGE_SEO } from '../constants/seo';
+
 export default function Refund() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4">
+      <SEO {...PAGE_SEO['/refund']} />
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow p-8">
         <h1 className="text-3xl font-bold mb-8">환불정책</h1>
 

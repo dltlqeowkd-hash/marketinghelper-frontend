@@ -1,0 +1,61 @@
+# 마케팅헬퍼 (MarketingHelper)
+
+> 마케팅헬퍼는 네이버 쇼핑 순위 추적, 경쟁사 분석, 키워드 최적화를 자동화하는 Windows 전용 마케팅 소프트웨어입니다.
+
+## 제품 개요
+마케팅헬퍼는 네이버 스마트스토어 셀러와 마케팅 대행사를 위한 올인원 마케팅 자동화 도구입니다.
+
+### 주요 기능
+- 실시간 네이버 쇼핑 키워드 순위 추적
+- 경쟁사 순위 변동 모니터링 및 분석
+- 키워드 검색량, 경쟁도, 예상 순위 분석
+- 여러 스토어/블로그 계정 통합 관리
+- IP 분산 기능으로 안전한 자동화 운영
+- 24시간 자동 스케줄링 (순위 추적, 리포트 생성)
+
+### 무료 도구
+- SEO 진단 도구: 웹사이트 SEO 점수를 무료로 분석하고 개선 방법을 제공합니다.
+  URL: https://marketinghelper.co.kr/seo-doctor
+
+## 가격 플랜
+
+### Light - ₩14,500/월
+- 키워드 5개 추적
+- 기본 순위 추적
+- 쇼핑 순위 분석
+
+### Premium - ₩29,500/월
+- 키워드 20개 추적
+- 경쟁사 분석
+- 블로그 자동화
+
+### VIP - ₩49,500/월
+- 키워드 50개 추적
+- 전체 기능
+- 자동 스케줄링
+- 프록시/IP 분산
+- 우선 기술 지원
+
+### VIP Pro - ₩1,990,000 (일시불, 평생 라이선스)
+- 무제한 키워드
+- 모든 기능
+- 평생 업데이트
+- 전담 매니저
+
+## 회사 정보
+- 회사명: 세리오(Serio)
+- 대표: 최영호
+- 사업자등록번호: 863-17-01349
+- 주소: 경기도 성남시 중원구 갈마치로288번길 14, 2층 225-2호
+- 이메일: dltlqeowkd@gmail.com
+- 전화: 010-8563-5815
+
+## 사이트맵
+- 홈: https://marketinghelper.co.kr/
+- 제품 소개: https://marketinghelper.co.kr/home
+- SEO 진단: https://marketinghelper.co.kr/seo-doctor
+- 사용 가이드: https://marketinghelper.co.kr/guide
+- 회원가입: https://marketinghelper.co.kr/register
+- 이용약관: https://marketinghelper.co.kr/terms
+- 개인정보처리방침: https://marketinghelper.co.kr/privacy
+- 환불정책: https://marketinghelper.co.kr/refund

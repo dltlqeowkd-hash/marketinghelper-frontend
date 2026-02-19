@@ -11,10 +11,23 @@ import TestimonialsSection from '../components/landing/TestimonialsSection';
 import FAQSection from '../components/landing/FAQSection';
 import CTASection from '../components/landing/CTASection';
 import Footer from '../components/landing/Footer';
+import SEO from '../components/SEO';
+import { PAGE_SEO, generateFAQSchema, generateBreadcrumbSchema } from '../constants/seo';
+import { FAQ } from '../constants/content';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <SEO
+        {...PAGE_SEO['/home']}
+        jsonLd={[
+          generateFAQSchema(FAQ.list),
+          generateBreadcrumbSchema([
+            { name: '홈', url: 'https://marketinghelper.co.kr/' },
+            { name: '제품 소개', url: 'https://marketinghelper.co.kr/home' }
+          ])
+        ]}
+      />
       <Navbar />
       <HeroSection />
       <SocialProof />

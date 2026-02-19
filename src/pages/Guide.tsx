@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FAQ } from '../constants/content';
 import { PLAN_LIST, FREE_TRIAL, formatKrw } from '../constants/plans';
+import SEO from '../components/SEO';
+import { PAGE_SEO, generateBreadcrumbSchema } from '../constants/seo';
 
 // 사이드바 네비게이션 항목
 const SECTIONS = [
@@ -81,6 +83,13 @@ export default function Guide() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        {...PAGE_SEO['/guide']}
+        jsonLd={generateBreadcrumbSchema([
+          { name: '홈', url: 'https://marketinghelper.co.kr/' },
+          { name: '사용 가이드', url: 'https://marketinghelper.co.kr/guide' }
+        ])}
+      />
       {/* 상단 헤더 */}
       <header className="bg-gray-900 text-white py-12">
         <div className="max-w-5xl mx-auto px-4">

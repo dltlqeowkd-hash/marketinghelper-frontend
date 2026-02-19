@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { getGoogleLoginUrl, getNaverLoginUrl } from '../services/auth.service';
+import SEO from '../components/SEO';
+import { PAGE_SEO } from '../constants/seo';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -61,6 +63,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white flex items-center justify-center px-4 py-12">
+      <SEO {...PAGE_SEO['/register']} />
       <div className="w-full max-w-md">
         {/* 로고 */}
         <div className="text-center mb-8">

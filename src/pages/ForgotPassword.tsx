@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { forgotPassword } from '../services/auth.service';
+import SEO from '../components/SEO';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white flex items-center justify-center px-4">
+      <SEO title="비밀번호 찾기" description="마케팅헬퍼 비밀번호를 재설정합니다." noindex={true} />
       <div className="w-full max-w-md">
         {/* 로고 */}
         <div className="text-center mb-8">

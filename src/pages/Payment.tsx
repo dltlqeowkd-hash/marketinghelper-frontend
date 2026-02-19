@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { PLAN_LIST, formatKrw, formatUsd } from '../constants/plans';
 import { createPolarCheckout, createPayPalOrder, requestBankTransfer } from '../services/payment.service';
+import SEO from '../components/SEO';
 
 export default function Payment() {
   const [searchParams] = useSearchParams();
@@ -135,6 +136,7 @@ export default function Payment() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <SEO title="요금제 결제" description="마케팅헬퍼 요금제를 선택하고 결제하세요." noindex={true} />
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="text-center mb-8">
